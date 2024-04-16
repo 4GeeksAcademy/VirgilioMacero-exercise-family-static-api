@@ -7,6 +7,7 @@ update this file to implement the following already declared methods:
 - get_member: Should return a member from the self._members list
 """
 from random import randint
+from flask import jsonify
 
 class FamilyStructure:
     def __init__(self, last_name):
@@ -21,15 +22,38 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        if member["last_name"] != self.last_name:
+
+            return jsonify({"error":"Member last name is not {}".format(self.last_name)}),404
+
+        self._members.append(member)  
+
+        print(self._members)
+
+        return jsonify({"lucky_numbers":member["lucky_numbers"],"age":int(member["age"]),"first_name":member["first_name"]}),200
+
+        
 
     def delete_member(self, id):
-        # fill this method and update the return
-        pass
+        for  member in self._members:
+
+            if member["id"] == id:
+                self._members.remove(member)
+                return jsonify({"message":"User Deleted Successfully"}),200
+
+        return jsonify({"Error":"Member not Found"}),404
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
+
+        for member in self._members:
+
+            if member["id"] == id:
+                return jsonify(member),200
+
+        return jsonify({"Error":"Member not Found"}),404
+
+
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
