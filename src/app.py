@@ -40,7 +40,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
-@app.route("/addMember", methods=["POST"])
+@app.route("/member", methods=["POST"])
 def handle_adding():
 
     if "first_name" not in request.json:
@@ -72,11 +72,11 @@ def handle_adding():
     return jackson_family.add_member(member)
 
 
-@app.route("/members/<int:memberId>", methods=["GET"])
+@app.route("/member/<int:memberId>", methods=["GET"])
 def getMember(memberId):
     return jackson_family.get_member(memberId)
 
-@app.route("/members/<int:memberId>", methods=["DELETE"])
+@app.route("/member/<int:memberId>", methods=["DELETE"])
 def deleteMember(memberId):
     return jackson_family.delete_member(memberId)
 
